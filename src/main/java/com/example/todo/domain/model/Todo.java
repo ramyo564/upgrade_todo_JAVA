@@ -1,16 +1,13 @@
 package com.example.todo.domain.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import com.example.todo.domain.exception.TodoValidationException;
 import java.util.Objects;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.AccessLevel;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "todos")
@@ -44,6 +41,7 @@ public class Todo {
   private LocalDateTime deletedAt;
 
   public Todo(String title, String description) {
+    validateTitle(title);
     this.title = title;
     this.description = description;
     this.completed = false;
@@ -51,7 +49,19 @@ public class Todo {
     this.updatedAt = this.createdAt;
   }
 
+  private void validateTitle(String title) {
+    if (title == null || title.trim().isEmpty()) {
+      throw new TodoValidationException("Title cannot be empty");
+    }
+    if (title.length() > 100) {
+      throw new TodoValidationException("Title cannot be longer than 100 characters");
+    }
+  }
+
   public void complete() {
+    if (isDeleted()) {
+      throw new TodoValidationException("Cannot complete a deleted todo");
+    }
     if (!this.completed) {
       this.completed = true;
       this.completedAt = LocalDateTime.now();
@@ -60,6 +70,9 @@ public class Todo {
   }
 
   public void uncompleted() {
+    if (isDeleted()) {
+      throw new TodoValidationException("Cannot uncomplete a deleted todo");
+    }
     if (this.completed) {
       this.completed = false;
       this.completedAt = null;
@@ -68,19 +81,29 @@ public class Todo {
   }
 
   public void updateTitle(String title) {
-    if (title == null || title.trim().isEmpty()) {
-      throw new IllegalArgumentException("Title cannot be empty");
+    if (isDeleted()) {
+      throw new TodoValidationException("Cannot update a deleted todo");
     }
+    validateTitle(title);
     this.title = title;
     this.updatedAt = LocalDateTime.now();
   }
 
   public void updateDescription(String description) {
+    if (isDeleted()) {
+      throw new TodoValidationException("Cannot update a deleted todo");
+    }
+    if (description != null && description.length() > 1000) {
+      throw new TodoValidationException("Description cannot be longer than 1000 characters");
+    }
     this.description = description;
     this.updatedAt = LocalDateTime.now();
   }
 
   public void delete() {
+    if (this.deletedAt != null) {
+      throw new TodoValidationException("Todo is already deleted");
+    }
     this.deletedAt = LocalDateTime.now();
   }
 

@@ -1,5 +1,6 @@
 package com.example.todo.application.service;
 
+import com.example.todo.domain.exception.TodoNotFoundException;
 import com.example.todo.domain.model.Todo;
 import com.example.todo.domain.repository.TodoRepository;
 import java.util.List;
@@ -24,8 +25,7 @@ public class TodoService {
   public Todo getTodo(Long id) {
     return todoRepository.findById(id)
         .filter(todo -> !todo.isDeleted())
-        .orElseThrow(() -> new IllegalArgumentException(
-            "Todo not found with id: " + id));
+        .orElseThrow(() -> new TodoNotFoundException(id));
   }
 
   public List<Todo> getAllTodos() {
