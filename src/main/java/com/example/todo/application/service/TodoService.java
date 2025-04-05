@@ -74,7 +74,7 @@ public class TodoService {
         log.debug("Patching Todo with ID: {}", id);
         Todo todo = getTodo(id);
         
-        if (title != null && !title.isEmpty()) {
+        if (title != null) {
             log.debug("Updating title for Todo with ID: {}", id);
             todo.updateTitle(title);
         }

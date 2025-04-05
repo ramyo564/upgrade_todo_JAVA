@@ -1,5 +1,6 @@
 package com.example.todo.domain.model;
 
+import com.example.todo.domain.exception.TodoValidationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -98,7 +99,7 @@ class TodoTest {
         Todo todo = new Todo("테스트", "설명");
 
         // when & then
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(TodoValidationException.class, () -> {
             todo.updateTitle("");
         });
     }
