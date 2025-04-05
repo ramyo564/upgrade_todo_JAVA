@@ -3,6 +3,7 @@ package com.example.todo.interfaces.controller;
 import com.example.todo.application.service.TodoService;
 import com.example.todo.interfaces.dto.TodoRequest;
 import com.example.todo.interfaces.dto.TodoResponse;
+import com.example.todo.interfaces.dto.TodoPatchRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -119,6 +121,26 @@ public class TodoController {
       @Valid @RequestBody TodoRequest request) {
     return ResponseEntity.ok(new TodoResponse(
         todoService.updateTodo(id, request.getTitle(),
+            request.getDescription())
+    ));
+  }
+
+  @Operation(
+      summary = "Partially update a todo",
+      description = "Updates specific fields of an existing todo item")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Todo partially updated successfully",
+          content = @Content(schema = @Schema(implementation = TodoResponse.class))),
+      @ApiResponse(responseCode = "404", description = "Todo not found"),
+      @ApiResponse(responseCode = "400", description = "Invalid input")
+  })
+  @PatchMapping("/{id}")
+  public ResponseEntity<TodoResponse> patchTodo(
+      @Parameter(description = "ID of the todo to update")
+      @PathVariable Long id,
+      @RequestBody TodoPatchRequest request) {
+    return ResponseEntity.ok(new TodoResponse(
+        todoService.patchTodo(id, request.getTitle(),
             request.getDescription())
     ));
   }

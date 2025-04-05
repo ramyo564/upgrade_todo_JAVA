@@ -61,13 +61,32 @@ public class TodoService {
     }
 
     public Todo updateTodo(Long id, String title, String description) {
-        log.debug("Updating Todo with ID: {}", id);
+        log.debug("Updating Todo with ID: {} with title: {} and description: {}", id, title, description);
         Todo todo = getTodo(id);
         todo.updateTitle(title);
         todo.updateDescription(description);
         Todo updatedTodo = todoRepository.save(todo);
         log.info("Updated Todo with ID: {}", id);
         return updatedTodo;
+    }
+
+    public Todo patchTodo(Long id, String title, String description) {
+        log.debug("Patching Todo with ID: {}", id);
+        Todo todo = getTodo(id);
+        
+        if (title != null && !title.isEmpty()) {
+            log.debug("Updating title for Todo with ID: {}", id);
+            todo.updateTitle(title);
+        }
+        
+        if (description != null) {
+            log.debug("Updating description for Todo with ID: {}", id);
+            todo.updateDescription(description);
+        }
+        
+        Todo patchedTodo = todoRepository.save(todo);
+        log.info("Patched Todo with ID: {}", id);
+        return patchedTodo;
     }
 
     public Todo completeTodo(Long id) {
