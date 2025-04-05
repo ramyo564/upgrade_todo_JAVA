@@ -1,5 +1,6 @@
 package com.example.todo.application.service;
 
+import com.example.todo.domain.exception.TodoNotFoundException;
 import com.example.todo.domain.model.Todo;
 import com.example.todo.domain.repository.TodoRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -69,7 +70,7 @@ class TodoServiceTest {
         when(todoRepository.findById(id)).thenReturn(Optional.empty());
 
         // when & then
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(TodoNotFoundException.class, () -> {
             todoService.getTodo(id);
         });
     }
