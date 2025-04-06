@@ -1,6 +1,7 @@
 package com.example.todo.infrastructure.persistence;
 
-import com.example.todo.domain.model.Todo;
+import com.example.todo.todo.domain.model.Todo;
+import com.example.todo.todo.infrastructure.persistence.JpaTodoRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

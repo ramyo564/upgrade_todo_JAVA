@@ -1,10 +1,9 @@
 package com.example.todo.domain.model;
 
-import com.example.todo.domain.exception.TodoValidationException;
+import com.example.todo.todo.domain.exception.TodoValidationException;
+import com.example.todo.todo.domain.model.Todo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

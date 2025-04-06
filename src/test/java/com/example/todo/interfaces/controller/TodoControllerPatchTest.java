@@ -1,11 +1,11 @@
 package com.example.todo.interfaces.controller;
 
-import com.example.todo.application.service.TodoService;
-import com.example.todo.domain.exception.TodoNotFoundException;
-import com.example.todo.domain.exception.TodoValidationException;
-import com.example.todo.domain.model.Todo;
-import com.example.todo.interfaces.dto.TodoPatchRequest;
-import com.example.todo.interfaces.dto.TodoResponse;
+import com.example.todo.todo.application.service.TodoService;
+import com.example.todo.todo.domain.exception.TodoNotFoundException;
+import com.example.todo.todo.domain.exception.TodoValidationException;
+import com.example.todo.todo.domain.model.Todo;
+import com.example.todo.todo.interfaces.controller.TodoController;
+import com.example.todo.todo.interfaces.dto.TodoPatchRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

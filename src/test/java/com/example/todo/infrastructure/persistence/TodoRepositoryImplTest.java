@@ -1,6 +1,8 @@
 package com.example.todo.infrastructure.persistence;
 
-import com.example.todo.domain.model.Todo;
+import com.example.todo.todo.domain.model.Todo;
+import com.example.todo.todo.infrastructure.persistence.JpaTodoRepository;
+import com.example.todo.todo.infrastructure.persistence.TodoRepositoryImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

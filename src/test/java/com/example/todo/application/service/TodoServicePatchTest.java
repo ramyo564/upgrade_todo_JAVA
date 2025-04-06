@@ -1,9 +1,10 @@
 package com.example.todo.application.service;
 
-import com.example.todo.domain.exception.TodoNotFoundException;
-import com.example.todo.domain.exception.TodoValidationException;
-import com.example.todo.domain.model.Todo;
-import com.example.todo.domain.repository.TodoRepository;
+import com.example.todo.todo.domain.exception.TodoNotFoundException;
+import com.example.todo.todo.domain.exception.TodoValidationException;
+import com.example.todo.todo.domain.model.Todo;
+import com.example.todo.todo.domain.repository.TodoRepository;
+import com.example.todo.todo.application.service.TodoService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
