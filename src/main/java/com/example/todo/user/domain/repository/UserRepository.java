@@ -30,18 +30,10 @@ public interface UserRepository {
     Optional<User> findByEmail(String email);
     
     /**
-     * 닉네임으로 사용자 조회
-     * @param nickname 사용자 닉네임
-     * @return 조회된 사용자 (없으면 Optional.empty())
-     */
-    Optional<User> findByNickname(String nickname);
-    
-    /**
      * 사용자 삭제
-     * @param user 삭제할 사용자
+     * @param id 삭제할 사용자의 ID
      */
-    void delete(User user);
+    void deleteById(Long id);
 
     boolean existsByEmail(String email);
-    boolean existsByNickname(String nickname);
 } 
