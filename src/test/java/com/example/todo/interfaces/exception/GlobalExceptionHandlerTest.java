@@ -1,7 +1,9 @@
 package com.example.todo.interfaces.exception;
 
-import com.example.todo.domain.exception.TodoNotFoundException;
-import com.example.todo.domain.exception.TodoValidationException;
+import com.example.todo.exception.ErrorResponse;
+import com.example.todo.exception.GlobalExceptionHandler;
+import com.example.todo.todo.domain.exception.TodoNotFoundException;
+import com.example.todo.todo.domain.exception.TodoValidationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;

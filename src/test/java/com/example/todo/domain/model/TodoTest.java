@@ -1,6 +1,7 @@
 package com.example.todo.domain.model;
 
-import com.example.todo.domain.exception.TodoValidationException;
+import com.example.todo.todo.domain.exception.TodoValidationException;
+import com.example.todo.todo.domain.model.Todo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
