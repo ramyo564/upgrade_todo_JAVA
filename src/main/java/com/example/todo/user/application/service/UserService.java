@@ -4,6 +4,7 @@ import com.example.todo.user.domain.exception.UserValidationException;
 import com.example.todo.user.domain.model.Gender;
 import com.example.todo.user.domain.model.User;
 import com.example.todo.user.domain.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -41,8 +44,11 @@ public class UserService {
             throw new UserValidationException("이미 사용 중인 닉네임입니다.");
         }
         
+        // 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(password);
+        
         // 사용자 생성 및 저장
-        User user = new User(email, password, nickname, age, gender);
+        User user = new User(email, encodedPassword, nickname, age, gender);
         return userRepository.save(user);
     }
 
@@ -86,7 +92,9 @@ public class UserService {
     @Transactional
     public User changePassword(String email, String newPassword) {
         User user = getUserByEmail(email);
-        user.changePassword(newPassword);
+        // 새 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.changePassword(encodedPassword);
         return userRepository.save(user);
     }
 
