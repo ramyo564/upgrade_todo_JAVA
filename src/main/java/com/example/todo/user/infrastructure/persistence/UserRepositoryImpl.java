@@ -31,6 +31,16 @@ public class UserRepositoryImpl implements UserRepository {
     }
     
     @Override
+    public Optional<User> findByNickname(String nickname) {
+        return jpaUserRepository.findByNickname(nickname);
+    }
+    
+    @Override
+    public void delete(User user) {
+        jpaUserRepository.delete(user);
+    }
+    
+    @Override
     public void deleteById(Long id) {
         jpaUserRepository.deleteById(id);
     }
@@ -38,5 +48,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean existsByEmail(String email) {
         return jpaUserRepository.existsByEmail(email);
+    }
+    
+    @Override
+    public boolean existsByNickname(String nickname) {
+        return jpaUserRepository.existsByNickname(nickname);
     }
 } 
